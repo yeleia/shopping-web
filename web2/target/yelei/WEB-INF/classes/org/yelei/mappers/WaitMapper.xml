@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.WaitDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Wait" id="WaitResult">
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goodsId"/>
+        <result property="state" column="state"/>
+        <result property="clientId" column="clientId"/>
+        <result property="number" column="number"/>
+        <result property="storeName" column="storeName"/>
+        <result property="userPhone" column="userPhone"/>
+        <result property="clientphone" column="clientphone"/>
+        <result property="clientName" column="clientName"/>
+        <result property="clientAdrss" column="clientAdrss"/>
+        <result property="goodsPrice" column="goodsPrice"/>
+        <result property="goodsName" column="goodsName"/>
+        <result property="goodsImage" column="goodsImage"/>
+        <result property="userName" column="userName"/>
+    </resultMap>
+    <insert id="insertgoods" parameterType="Wait">
+        INSERT INTO wait_table VALUES (null,#{goodsId},#{state},#{clientId},#{number},#{storeName},#{userPhone},#{clientphone}
+        ,#{clientName},#{clientAdrss},#{goodsPrice},#{goodsName},#{goodsImage},#{userName});
+    </insert>
+
+    <select id="selectgoods" parameterType="Integer" resultMap="WaitResult">
+        SELECT * FROM wait_table WHERE clientId=#{clientId} AND state=0;
+    </select>
+    <select id="selectgoodses" parameterType="String" resultMap="WaitResult">
+        SELECT * FROM wait_table WHERE userName=#{userName} AND state=0;
+    </select>
+    <update id="updatewait" parameterType="Wait">
+        UPDATE wait_table SET state=1 WHERE id=#{id};
+    </update>
+    <select id="selectWait" parameterType="Integer" resultMap="WaitResult">
+       SELECT * FROM wait_table WHERE clientId=#{clientId} AND state=1;
+    </select>
+    <update id="updatewaits" parameterType="Wait">
+       UPDATE wait_table SET state=2 WHERE id=#{id};
+    </update>
+    <select id="selectgoodses1" parameterType="String" resultMap="WaitResult">
+        SELECT * FROM wait_table WHERE userName=#{userName} AND state=2;
+    </select>
+    <select id="selectWait1" parameterType="Integer" resultMap="WaitResult">
+        SELECT * FROM wait_table WHERE clientId=#{clientId} AND state=2;
+    </select>
+
+
+</mapper> 

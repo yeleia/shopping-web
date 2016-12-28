@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.ClientDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Client" id="ClientResult">
+        <result property="id" column="id"/>
+        <result property="Cname" column="Cname"/>
+        <result property="Cpassword" column="Cpassword"/>
+        <result property="Cadress" column="Cadress"/>
+        <result property="Cphone" column="Cphone"/>
+        <result property="Ctest" column="Ctest"/>
+        <result property="Cimage" column="Cimage"/>
+
+    </resultMap>
+    <select id="getByCPhone" parameterType="String" resultMap="ClientResult">
+        SELECT * FROM client_table WHERE Cphone=#{Cphone}
+    </select>
+    <select id="getByname" parameterType="String" resultMap="ClientResult">
+        select * from client_table where Cname=#{Cname}
+    </select>
+    <select id="getByCtest" parameterType="String" resultMap="ClientResult">
+        SELECT * FROM client_table WHERE Ctest=#{Ctest} and Cname IS NULL
+    </select>
+    <update id="Cregister" parameterType="Client">
+       UPDATE client_table SET Cname=#{Cname},Cpassword=#{Cpassword},Cadress=#{Cadress},Cphone=#{Cphone} WHERE Cname is NULL and Ctest=#{Ctest}
+    </update>
+    <insert id="Ctest" parameterType="Client">
+        insert into client_table values (null,null,null,null,null,#{Ctest},NULL )
+    </insert>
+    <update id="updateClient" parameterType="Client">
+        UPDATE  client_table SET
+        Cadress=#{Cadress},Cphone=#{Cphone} where Cname=#{Cname}
+    </update>
+    <update id="Cimage" parameterType="Client">
+        UPDATE client_table SET Cimage=#{Cimage} where Cname=#{Cname}
+    </update>
+    <select id="selectById" parameterType="Integer" resultMap="ClientResult">
+        SELECT * FROM client_table WHERE id=#{id}
+    </select>
+    <update id="updateAll" parameterType="Client">
+        UPDATE client_table SET Cadress=#{Cadress},Cphone=#{Cphone},Cimage=#{Cimage} WHERE Cname=#{Cname}
+    </update>
+
+</mapper> 

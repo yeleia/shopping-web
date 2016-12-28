@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.StoreDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Store" id="StoreResult">
+        <result property="id" column="id"/>
+       <result property="storeName" column="storeName"/>
+           </resultMap>
+  <select id="selectByStoreName" parameterType="String" resultMap="StoreResult">
+      SELECT * from store_table WHERE storeName=#{storeName}
+  </select>
+    <insert id="addStore" parameterType="Store">
+        INSERT into store_table VALUES (null,#{storeName})
+    </insert>
+    <select id="selectAll"  resultMap="StoreResult">
+        SELECT * FROM store_table
+    </select>
+    <select id="selectStoreName" parameterType="Integer" resultMap="StoreResult">
+        SELECT * FROM store_table WHERE id=#{id}
+    </select>
+    <delete id="delectStore" parameterType="String">
+        DELETE from store_table WHERE storeName=#{storeName}
+    </delete>
+</mapper> 

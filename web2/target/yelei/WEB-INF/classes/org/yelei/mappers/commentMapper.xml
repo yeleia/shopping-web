@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.CommentDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Comment" id="CommentResult">
+        <result property="id" column="id"/>
+       <result property="content" column="content"/>
+           </resultMap>
+  <insert id="insertComment" parameterType="Comment">
+      INSERT INTO comment_table VALUES (null,#{content})
+  </insert>
+    <select id="selectComment"  resultMap="CommentResult">
+        select * FROM comment_table
+    </select>
+    <select id="selecId" resultMap="CommentResult">
+        select * FROM comment_table order by id DESC LIMIT 1
+    </select>
+    <delete id="deleteComment" parameterType="Integer">
+        DELETE from comment_table WHERE id=#{id}
+    </delete>
+</mapper> 

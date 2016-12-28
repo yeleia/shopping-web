@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.ShopCarDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="ShopCar" id="ShopCarResult">
+        <result property="id" column="id"/>
+       <result property="goodsId" column="goodsId"/>
+        <result property="clientId" column="clientId"/>
+           </resultMap>
+  <insert id="inserToCar" parameterType="ShopCar">
+      insert into shopCar_table values (null,#{goodsId},#{clientId});
+  </insert>
+    <select id="selectByClientId" parameterType="Integer" resultMap="ShopCarResult">
+        SELECT * FROM shopCar_table WHERE clientId=#{clientId}
+    </select>
+    <select id="selectByGoodsId"  resultMap="ShopCarResult">
+        SELECT * from shopCar_table WHERE goodsId=#{0} AND clientId=#{1}
+    </select>
+    <delete id="deleteByGoodsId" parameterType="Integer">
+        DELETE FROM shopCar_table WHERE goodsId=#{goodsId}
+    </delete>
+</mapper>

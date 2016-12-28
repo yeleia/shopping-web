@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.GoodsDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Goods" id="GoodsResult">
+        <result property="id" column="id"/>
+        <result property="goodsName" column="goodsName"/>
+        <result property="describ" column="describ"/>
+        <result property="price" column="price"/>
+        <result property="typeName" column="typeName"/>
+        <result property="goodsImage" column="goodsImage"/>
+        <result property="storeId" column="storeId"/>
+        <result property="userId" column="userId"/>
+           </resultMap>
+   <insert id="insertGoods" parameterType="Goods">
+       INSERT into goods_table VALUES (NULL,#{goodsName},#{describ},#{price},#{typeName},#{goodsImage},#{storeId},#{userId})
+   </insert>
+    <delete id="deleteGoodsById" parameterType="Integer">
+        DELETE FROM goods_table WHERE id=#{id}
+    </delete>
+    <update id="updateGoods" parameterType="Goods">
+        UPDATE  goods_table set goodsName=#{goodsName},describ=#{describ},price=#{price},typeName=#{typeName},goodsImage=#{goodsImage} WHERE id=#{id}
+    </update>
+    <select id="slectByStoreId" parameterType="Integer" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE storeId=#{storeId}
+    </select>
+    <select id="selectAllGoods"  resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE typeName="零食"
+    </select>
+    <select id="selectGoods" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE typeName="生活用品"
+    </select>
+    <select id="selectfood" parameterType="Integer" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE storeId=#{storeId} AND typeName="零食"
+    </select>
+    <select id="selectUse" parameterType="Integer" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE storeId=#{storeId} AND typeName="生活用品"
+    </select>
+    <select id="selectByGoodsId" parameterType="Integer" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE id=#{id}
+    </select>
+    <select id="selectByGoodName" parameterType="String" resultMap="GoodsResult">
+        SELECT * FROM goods_table WHERE goodsName=#{goodsName}
+    </select>
+    <delete id="delectByUserId" parameterType="Integer">
+        DELETE FROM goods_table WHERE userId=#{userId}
+    </delete>
+
+
+
+</mapper> 

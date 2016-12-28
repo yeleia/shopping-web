@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.UserDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="User" id="UserResult">
+        <result property="id" column="id"/>
+        <result property="userName" column="userName"/>
+        <result property="password" column="password"/>
+        <result property="sign" column="sign"/>
+        <result property="adress" column="adress"/>
+        <result property="phone" column="phone"/>
+        <result property="test" column="test"/>
+        <result property="storeName" column="storeName"/>
+        <result property="userImage" column="userImage"/>
+
+    </resultMap>
+    <select id="getByPhone" parameterType="String" resultMap="UserResult">
+        SELECT * FROM user_table WHERE phone=#{phone}
+    </select>
+    <select id="getByUserName" parameterType="String" resultMap="UserResult">
+        select * from user_table where userName=#{userName}
+    </select>
+    <select id="getByStoreName" parameterType="String" resultMap="UserResult">
+        select * from user_table WHERE storeName=#{storeName}
+    </select>
+    <select id="getByTest" parameterType="String" resultMap="UserResult">
+        SELECT * FROM user_table WHERE test=#{test} and userName IS NULL
+    </select>
+    <update id="register" parameterType="User">
+       UPDATE user_table SET userName=#{userName},password=#{password},adress=#{adress},phone=#{phone},storeName=#{storeName},userImage=#{userImage} WHERE userName is NULL and test=#{test}
+    </update>
+    <insert id="test" parameterType="User">
+        insert into user_table values (null,null,null,null,null,null,#{test},null,NULL)
+    </insert>
+    <update id="updateUser" parameterType="User">
+        UPDATE  user_table SET sign=#{sign},
+        adress=#{adress},phone=#{phone},storeName=#{storeName} where userName=#{userName}
+    </update>
+    <update id="image" parameterType="User">
+        UPDATE user_table SET userImage=#{userImage} where userName=#{userName}
+    </update>
+    <select id="selectAdress" parameterType="Integer" resultMap="UserResult">
+        SELECT * FROM user_table WHERE id=#{id}
+    </select>
+    <select id="selectAll" parameterType="User" resultMap="UserResult">
+        SELECT * FROM user_table
+    </select>
+    <delete id="deleteUser" parameterType="Integer" >
+        DELETE FROM user_table WHERE id=#{id}
+    </delete>
+
+</mapper> 

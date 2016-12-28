@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.yelei.dao.BuyDao"><!-- 当application加载dao层，会自动执行如下的命令 -->
+    <resultMap type="Buy" id="BuyResult">
+        <result property="id" column="id"/>
+        <result property="goodsId" column="goodsId"/>
+        <result property="clientId" column="clientId"/>
+        <result property="number" column="number"/>
+        <result property="state" column="state"/>
+        <result property="stroeId" column="stroeId"/>
+    </resultMap>
+
+
+
+</mapper> 
